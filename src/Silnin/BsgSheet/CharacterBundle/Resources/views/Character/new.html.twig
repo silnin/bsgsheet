@@ -1,6 +1,12 @@
 {% extends '::base.html.twig' %}
-
 {% block body -%}
+    <div id="menu">
+        {{ render(controller(
+        'DashboardBundle:Menu:dashboardMenu',
+        {}
+        )) }}
+    </div>
+
     <h1>Character creation</h1>
 
     {{ form(form) }}

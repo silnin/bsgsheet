@@ -2,6 +2,7 @@
 
 namespace Silnin\BsgSheet\CharacterBundle\Controller;
 
+use Silnin\BsgSheet\CharacterBundle\Service\CharacterSecurityService;
 use Silnin\BsgSheet\CharacterBundle\Service\CharacterService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -46,6 +47,9 @@ class CharacterController extends Controller
      */
     public function createAction(Request $request)
     {
+        /** @var CharacterSecurityService $characterSecurityService */
+        $characterSecurityService = $this->get('character.security.service');
+
         $entity = new Character();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -55,7 +59,7 @@ class CharacterController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->grantAccessToOwnContent($entity);
+            $characterSecurityService->grantAccessToOwnContent($entity);
 
             return $this->redirect($this->generateUrl('character_show', array('id' => $entity->getId())));
         }
@@ -111,6 +115,9 @@ class CharacterController extends Controller
      */
     public function showAction($id)
     {
+        /** @var CharacterSecurityService $characterSecurityService */
+        $characterSecurityService = $this->get('character.security.service');
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CharacterBundle:Character')->find($id);
@@ -119,7 +126,7 @@ class CharacterController extends Controller
             throw $this->createNotFoundException('Unable to find Character entity.');
         }
 
-        $this->checkAccess($entity);
+        $characterSecurityService->checkAccess($entity);
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -138,6 +145,8 @@ class CharacterController extends Controller
      */
     public function editAction($id)
     {
+        /** @var CharacterSecurityService $characterSecurityService */
+        $characterSecurityService = $this->get('character.security.service');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -147,7 +156,7 @@ class CharacterController extends Controller
             throw $this->createNotFoundException('Unable to find Character entity.');
         }
 
-        $this->checkAccess($entity);
+        $characterSecurityService->checkAccess($entity);
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -186,6 +195,9 @@ class CharacterController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        /** @var CharacterSecurityService $characterSecurityService */
+        $characterSecurityService = $this->get('character.security.service');
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CharacterBundle:Character')->find($id);
@@ -194,7 +206,7 @@ class CharacterController extends Controller
             throw $this->createNotFoundException('Unable to find Character entity.');
         }
 
-        $this->checkAccess($entity);
+        $characterSecurityService->checkAccess($entity);
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
@@ -220,6 +232,9 @@ class CharacterController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        /** @var CharacterSecurityService $characterSecurityService */
+        $characterSecurityService = $this->get('character.security.service');
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -231,7 +246,7 @@ class CharacterController extends Controller
                 throw $this->createNotFoundException('Unable to find Character entity.');
             }
 
-            $this->checkAccess($entity);
+            $characterSecurityService->checkAccess($entity);
 
             $em->remove($entity);
             $em->flush();
