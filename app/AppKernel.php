@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new BsgSheetsBundle\BsgSheetsBundle(),
+
             new Silnin\SilninUserBundle\SilninUserBundle(),
             new Silnin\SilninBsgDashboardBundle\SilninBsgDashboardBundle()
         );
@@ -29,8 +29,6 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            // $bundles[] = new FOS\OAuthServerBundle\FOSOAuthServerBundle();
-            // also removed this from required in composer.json: "friendsofsymfony/oauth-server-bundle": "dev-master",
         }
 
         return $bundles;

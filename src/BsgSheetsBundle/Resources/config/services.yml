@@ -1,9 +1,0 @@
-parameters:
-  product.repository.class:              BsgSheetsBundle\Entity\ProductRepository
-
-services:
-  product.repository:
-    class:            "%product.repository.class%"
-    factory_service:  "doctrine.orm.entity_manager"
-    factory_method:   "getRepository"
-#    arguments:        ["BsgSheetsProductBundle:Product"]

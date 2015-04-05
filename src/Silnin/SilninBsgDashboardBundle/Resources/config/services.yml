@@ -1,6 +1,9 @@
 parameters:
-  silninbsgdashboard.controller.class:              Silnin\SilninBsgDashboard\Controller\DashboardController
+    dashboard.service.class:             Silnin\SilninBsgDashboardBundle\Service\DashboardService
 
 services:
-  dashboard.controller:
-    class:            "%silninbsgdashboard.controller.class%"
+
+    dashboard.service:
+        class:            "%dashboard.service.class%"
+        arguments:
+            - @security.context

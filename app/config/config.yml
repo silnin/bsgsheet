@@ -72,13 +72,6 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-#fos_oauth_server:
-#   db_driver:     "orm"
-#   client_class:  "gop"
-#   access_token_class: "tok"
-#   refresh_token_class: "ref"
-#   auth_code_class: "auth"
-
 fos_user:
     db_driver:      orm
     firewall_name:  main
