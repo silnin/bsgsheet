@@ -8,3 +8,7 @@ fos_user:
 dashboard:
     resource: "@DashboardBundle/Controller/"
     type: annotation
+
+character:
+    resource: "@CharacterBundle/Controller/"
+    type: annotation
