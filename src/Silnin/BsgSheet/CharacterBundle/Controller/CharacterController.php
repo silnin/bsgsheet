@@ -252,7 +252,7 @@ class CharacterController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('character'));
+        return $this->redirect($this->generateUrl('dashboard'));
     }
 
     /**
