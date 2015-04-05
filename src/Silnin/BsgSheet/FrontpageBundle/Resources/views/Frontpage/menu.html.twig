@@ -1,0 +1,9 @@
+<a href="{{ app.request.baseUrl }}/">home</a> |
+{% if myname %}
+    <a href="{{ app.request.baseUrl }}/dashboard">dashboard</a> |
+    logged in as <a href="{{ app.request.baseUrl }}/profile">{{ myname }}</a> |
+    <a href="{{ app.request.baseUrl }}/logout">logout</a>
+{% else %}
+    <a href="{{ app.request.baseUrl }}/register">register</a> |
+    <a href="{{ app.request.baseUrl }}/login">dashboard</a>
+{% endif %}

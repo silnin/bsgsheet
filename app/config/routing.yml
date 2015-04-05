@@ -12,3 +12,7 @@ dashboard:
 character:
     resource: "@CharacterBundle/Controller/"
     type: annotation
+
+frontpage:
+    resource: "@FrontpageBundle/Controller/"
+    type: annotation
