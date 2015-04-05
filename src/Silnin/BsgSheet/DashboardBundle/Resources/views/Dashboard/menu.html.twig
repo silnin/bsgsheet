@@ -1,1 +1,4 @@
- home | dashboard | profile | logged in as {{ myname }} | logout
+<a href="{{ app.request.baseUrl }}/">home</a> |
+<a href="{{ app.request.baseUrl }}/dashboard">dashboard</a> |
+logged in as <a href="{{ app.request.baseUrl }}/profile">{{ myname }}</a> |
+<a href="{{ app.request.baseUrl }}/logout">logout</a>
