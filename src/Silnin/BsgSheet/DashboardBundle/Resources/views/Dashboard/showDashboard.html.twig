@@ -5,7 +5,12 @@
 {#{% block title 'Battlestar Galactica Sheet' %}#}
 
 {% block body -%}
-    {{ menu }}<br/>
+    <div id="menu">
+        {{ render(controller(
+            'DashboardBundle:Menu:dashboardMenu',
+            {}
+        )) }}
+    </div>
 
     <h1>Character list</h1>
 

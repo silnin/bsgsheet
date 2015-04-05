@@ -15,17 +15,9 @@ class DashboardController extends Controller
      */
     public function showDashboardAction()
     {
-        $user = $this->getUser()->getId();
-//        return array('hop'=>$user);
-
         /* @var DashboardService $dashboardService */
         $dashboardService = $this->get('dashboard.service');
 
         return $dashboardService->createDashboard();
-
-//        /* @var LoginService $loginService */
-//        $loginService = $this->get('user.login');
-//        $value = $loginService->getMeSome();
-//        return ['hop'=>$value];
     }
 }

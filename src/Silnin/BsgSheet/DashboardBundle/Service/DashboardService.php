@@ -33,16 +33,8 @@ class DashboardService
     public function createDashboard()
     {
         return array(
-            'menu' => $this->createDashboardMenu(),
             'entities' => $this->listMySheets()
         );
-    }
-
-    private function createDashboardMenu()
-    {
-        //@todo: 2015-04-5 call User service for this, leave out security context
-        $menu = 'ik ben ' . $this->securityContext->getToken()->getUser()->getUsername();
-        return $menu;
     }
 
     // crud functionality much?
