@@ -1,0 +1,36 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+#hello:
+#  pattern: /
+#  defaults:
+#    _controller: "Acme\DemoBundle\Controller\DemoController::helloAction"
+
+#
+#sheet:
+#  pattern: /
+#  defaults:
+#    _controller: "BsgSheetsBundle\Controller\SheetController::dashboardAction"
+
+#blog_show:
+#    path:      /blog/{slug}
+#    defaults:  { _controller: Silnin\SilninUserBundle:User:show }
+
+#login:
+#  pattern: /login
+#  defaults:
+#      _controller: "Silnin\SilninUserBundle\Controller\UserController:loginAction"
+
+#
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+#login:
+#    resource: "@SilninUserBundle/Controller/"
+#    type:     annotation
+
+dashboard:
+    resource: "@SilninBsgDashboardBundle/Controller/"
+    type: annotation

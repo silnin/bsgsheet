@@ -1,0 +1,6 @@
+parameters:
+  silninbsgdashboard.controller.class:              Silnin\SilninBsgDashboard\Controller\DashboardController
+
+services:
+  dashboard.controller:
+    class:            "%silninbsgdashboard.controller.class%"

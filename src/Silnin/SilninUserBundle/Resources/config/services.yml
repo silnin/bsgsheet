@@ -1,0 +1,24 @@
+parameters:
+  silninuser.repository.class:              Silnin\SilninUserBundle\Entity\UserRepository
+  silninuser.loginservice.class:            Silnin\SilninUserBundle\Service\LoginService
+  silninuser.controller.class:              Silnin\SilninUserBundle\Controller\UserController
+  silninuser.repository.factory_argument:   Silnin\SilninUserBundle\Entity\User
+
+services:
+  user.controller:
+    class:            "%silninuser.controller.class%"
+
+  user.repository:
+    class:            "%silninuser.repository.class%"
+    factory_service:  "doctrine.orm.entity_manager"
+    factory_method:   "getRepository"
+    arguments:
+                - %silninuser.repository.factory_argument%
+
+
+
+  user.login:
+    class:            "%silninuser.loginservice.class%"
+    arguments:
+                - @user.repository
+                - @doctrine.orm.entity_manager
