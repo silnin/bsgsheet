@@ -3,6 +3,9 @@
 namespace Silnin\BsgSheet\CharacterBundle\Service;
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 use Silnin\BsgSheet\CharacterBundle\Entity\Character;
 
