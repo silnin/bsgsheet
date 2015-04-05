@@ -1,6 +1,6 @@
 <?php
 
-namespace Silnin\SilninUserBundle\Entity;
+namespace Silnin\BsgSheet\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;

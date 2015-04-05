@@ -1,8 +1,8 @@
 parameters:
-  silninuser.repository.class:              Silnin\SilninUserBundle\Entity\UserRepository
-  silninuser.loginservice.class:            Silnin\SilninUserBundle\Service\LoginService
-  silninuser.controller.class:              Silnin\SilninUserBundle\Controller\UserController
-  silninuser.repository.factory_argument:   Silnin\SilninUserBundle\Entity\User
+  silninuser.repository.class:              Silnin\BsgSheet\UserBundle\Entity\UserRepository
+  silninuser.loginservice.class:            Silnin\BsgSheet\UserBundle\Service\LoginService
+  silninuser.controller.class:              Silnin\BsgSheet\UserBundle\Controller\UserController
+  silninuser.repository.factory_argument:   Silnin\BsgSheet\UserBundle\Entity\User
 
 services:
   user.controller:

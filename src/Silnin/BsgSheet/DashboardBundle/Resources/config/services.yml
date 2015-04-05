@@ -1,5 +1,5 @@
 parameters:
-    dashboard.service.class:             Silnin\SilninBsgDashboardBundle\Service\DashboardService
+    dashboard.service.class:             Silnin\BsgSheet\DashboardBundle\Service\DashboardService
 
 services:
 

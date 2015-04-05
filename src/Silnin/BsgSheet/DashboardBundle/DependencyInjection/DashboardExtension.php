@@ -1,12 +1,12 @@
 <?php
-namespace Silnin\SilninBsgDashboardBundle\DependencyInjection;
+namespace Silnin\BsgSheet\DashboardBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 
-class SilninBsgDashboardExtension extends Extension
+class DashboardExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {

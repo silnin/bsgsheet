@@ -19,8 +19,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new FOS\UserBundle\FOSUserBundle(),
 
-            new Silnin\SilninUserBundle\SilninUserBundle(),
-            new Silnin\SilninBsgDashboardBundle\SilninBsgDashboardBundle()
+            new Silnin\BsgSheet\UserBundle\UserBundle(),
+            new Silnin\BsgSheet\DashboardBundle\DashboardBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

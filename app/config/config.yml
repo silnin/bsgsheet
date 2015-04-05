@@ -75,11 +75,10 @@ swiftmailer:
 fos_user:
     db_driver:      orm
     firewall_name:  main
-    user_class:     Silnin\SilninUserBundle\Entity\User
+    user_class:     Silnin\BsgSheet\UserBundle\Entity\User
     registration:
         confirmation:
             enabled:    true
-
     from_email:
         address:        noreply@silnin.nl
         sender_name:    BSG Sheets

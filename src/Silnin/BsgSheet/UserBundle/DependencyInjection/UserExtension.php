@@ -1,12 +1,12 @@
 <?php
-namespace Silnin\SilninUserBundle\DependencyInjection;
+namespace Silnin\BsgSheet\UserBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 
-class SilninUserExtension extends Extension
+class UserExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {

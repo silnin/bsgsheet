@@ -1,11 +1,11 @@
 <?php
-namespace Silnin\SilninBsgDashboardBundle\Controller;
+namespace Silnin\BsgSheet\DashboardBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Silnin\SilninBsgDashboardBundle\Service\DashboardService;
+use Silnin\BsgSheet\DashboardBundle\Service\DashboardService;
 
 class DashboardController extends Controller
 {

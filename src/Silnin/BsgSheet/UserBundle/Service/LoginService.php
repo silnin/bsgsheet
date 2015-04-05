@@ -1,13 +1,13 @@
 <?php
-namespace Silnin\SilninUserBundle\Service;
+namespace Silnin\BsgSheet\UserBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Silnin\SilninUserBundle\Entity\User;
-use Silnin\SilninUserBundle\Entity\UserRepository;
+use Silnin\BsgSheet\UserBundle\Entity\User;
+use Silnin\BsgSheet\UserBundle\Entity\UserRepository;
 
 class LoginService
 {
-    /** @var \Silnin\SilninUserBundle\Entity\UserRepository  */
+    /** @var \Silnin\BsgSheet\UserBundle\Entity\UserRepository  */
     protected $repository;
 
     /** @var \Doctrine\ORM\EntityManager  */

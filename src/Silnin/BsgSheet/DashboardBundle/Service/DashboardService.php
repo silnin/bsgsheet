@@ -1,5 +1,5 @@
 <?php
-namespace Silnin\SilninBsgDashboardBundle\Service;
+namespace Silnin\BsgSheet\DashboardBundle\Service;
 
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -19,11 +19,22 @@ class DashboardService
     /**
      * Construct a dashboard for logged in user, displaying his character sheets
      * and some CRUD functionality for them
-     * 
+     *
      * @return array
      */
     public function createDashboard()
     {
         return array('hop'=>'ingelogd als ' . $this->securityContext->getToken()->getUser()->getUsername());
+    }
+
+    private function createDashboardMenu()
+    {
+
+    }
+
+    // crud functionality much?
+    private function listMySheets()
+    {
+
     }
 }
