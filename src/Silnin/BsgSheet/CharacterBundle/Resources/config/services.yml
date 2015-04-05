@@ -1,0 +1,11 @@
+parameters:
+    silnin.bsgsheet.character.repository.class:              Silnin\BsgSheet\CharacterBundle\Entity\CharacterRepository
+    silnin.bsgsheet.character.repository.factory_argument:   Silnin\BsgSheet\CharacterBundle\Entity\Character
+
+services:
+    character.repository:
+        class:            "%silnin.bsgsheet.character.repository.class%"
+        factory_service:  "doctrine.orm.entity_manager"
+        factory_method:   "getRepository"
+        arguments:
+                    - %silnin.bsgsheet.character.repository.factory_argument%
