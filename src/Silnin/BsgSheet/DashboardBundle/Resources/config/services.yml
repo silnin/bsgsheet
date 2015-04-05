@@ -7,3 +7,4 @@ services:
         class:            "%dashboard.service.class%"
         arguments:
             - @security.context
+            - @character.service

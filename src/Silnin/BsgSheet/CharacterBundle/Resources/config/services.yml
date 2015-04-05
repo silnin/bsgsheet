@@ -1,6 +1,8 @@
 parameters:
     silnin.bsgsheet.character.repository.class:              Silnin\BsgSheet\CharacterBundle\Entity\CharacterRepository
     silnin.bsgsheet.character.repository.factory_argument:   Silnin\BsgSheet\CharacterBundle\Entity\Character
+    silnin.bsgsheet.character.service.class:                 Silnin\BsgSheet\CharacterBundle\Service\CharacterService
+    silnin.bsgsheet.character.security.service.class:        Silnin\BsgSheet\CharacterBundle\Service\CharacterSecurityService
 
 services:
     character.repository:
@@ -8,4 +10,17 @@ services:
         factory_service:  "doctrine.orm.entity_manager"
         factory_method:   "getRepository"
         arguments:
-                    - %silnin.bsgsheet.character.repository.factory_argument%
+            - %silnin.bsgsheet.character.repository.factory_argument%
+
+    character.service:
+        class:            "%silnin.bsgsheet.character.service.class%"
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @character.security.service
+
+    character.security.service:
+        class:            "%silnin.bsgsheet.character.security.service.class%"
+        arguments:
+            - @security.authorization_checker
+            - @security.token_storage
+            - @security.acl.provider

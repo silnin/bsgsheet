@@ -2,6 +2,7 @@
 
 namespace Silnin\BsgSheet\CharacterBundle\Controller;
 
+use Silnin\BsgSheet\CharacterBundle\Service\CharacterService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -31,62 +32,9 @@ class CharacterController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('CharacterBundle:Character')->findAll();
-
-        $allowedEntities = [];
-        foreach ($entities as $entity) {
-            try {
-                $this->checkAccess($entity);
-                $allowedEntities[] = $entity;
-
-            } catch (AccessDeniedException $e) {
-                continue;
-            }
-        }
-
-        return array(
-            'entities' => $allowedEntities,
-        );
-    }
-
-    /**
-     * After creation of a character, grant the user 'owner' rights
-     *
-     * @param Character $character
-     */
-    private function grantAccessToOwnContent(Character $character)
-    {
-        // creating the ACL
-        $aclProvider = $this->get('security.acl.provider');
-        $objectIdentity = ObjectIdentity::fromDomainObject($character);
-        $acl = $aclProvider->createAcl($objectIdentity);
-
-        // retrieving the security identity of the currently logged-in user
-        $tokenStorage = $this->get('security.token_storage');
-        $user = $tokenStorage->getToken()->getUser();
-        $securityIdentity = UserSecurityIdentity::fromAccount($user);
-
-        // grant owner access
-        $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
-        $aclProvider->updateAcl($acl);
-    }
-
-    /**
-     * Check whether the user is allowed to access this character
-     *
-     * @param Character $character
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
-    private function checkAccess(Character $character)
-    {
-        $authorizationChecker = $this->get('security.authorization_checker');
-
-        // check for edit access
-        if (false === $authorizationChecker->isGranted('EDIT', $character)) {
-            throw new AccessDeniedException();
-        }
+        /** @var CharacterService $characterService */
+        $characterService = $this->get('character.service');
+        return $characterService->listMySheets();
     }
 
     /**
@@ -122,7 +70,6 @@ class CharacterController extends Controller
      * Creates a form to create a Character entity.
      *
      * @param Character $entity The entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Character $entity)
