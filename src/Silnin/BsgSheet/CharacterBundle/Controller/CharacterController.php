@@ -35,8 +35,19 @@ class CharacterController extends Controller
 
         $entities = $em->getRepository('CharacterBundle:Character')->findAll();
 
+        $allowedEntities = [];
+        foreach ($entities as $entity) {
+            try {
+                $this->checkAccess($entity);
+                $allowedEntities[] = $entity;
+
+            } catch (AccessDeniedException $e) {
+                continue;
+            }
+        }
+
         return array(
-            'entities' => $entities,
+            'entities' => $allowedEntities,
         );
     }
 
@@ -160,6 +171,8 @@ class CharacterController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Character entity.');
         }
+
+        $this->checkAccess($entity);
 
         $deleteForm = $this->createDeleteForm($id);
 
