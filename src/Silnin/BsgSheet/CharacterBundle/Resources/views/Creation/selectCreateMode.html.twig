@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div id="menu">
+        {{ render(controller(
+        'DashboardBundle:Menu:dashboardMenu',
+        {}
+        )) }}
+    </div>
+
+    <h1>How do you want to use the BSG Character Generator?</h1>
+    <br/>
+    <a href="{{ path('character_create_and_wizard') }}">Sir! Yes! Sir!</a><br/>
+    <a href="{{ path('character_create_and_edit') }}">Frak that! just give me my gods-damned sheet!</a>
+
+{% endblock %}

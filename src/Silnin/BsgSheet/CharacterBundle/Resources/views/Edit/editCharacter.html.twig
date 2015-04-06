@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div id="menu">
+        {{ render(controller(
+        'DashboardBundle:Menu:dashboardMenu',
+        {}
+        )) }}
+    </div>
+
+    <h1>You are attempting to edit {{ id }}, arent you?</h1>
+
+{% endblock %}
+

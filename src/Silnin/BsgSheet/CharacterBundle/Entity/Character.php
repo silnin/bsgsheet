@@ -22,7 +22,7 @@ class Character
     protected $active;
 
     /**
-     * @ORM\Column(name="name", type="string", length=64, unique=false, nullable=false)
+     * @ORM\Column(name="name", type="string", length=64)
      */
     protected $name;
 
@@ -65,13 +65,13 @@ class Character
     protected $stunRating;
 
     /**
-     * @ORM\OneToOne(targetEntity="Rank")
+     * @ORM\OneToOne(targetEntity="Rank", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="rank_id", referencedColumnName="id", nullable=true)
      **/
     protected $rank;
 
     /**
-     * @param mixed $advancementPoints
+     * @param integer $advancementPoints
      */
     public function setAdvancementPoints($advancementPoints)
     {
@@ -79,7 +79,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getAdvancementPoints()
     {
@@ -87,7 +87,7 @@ class Character
     }
 
     /**
-     * @param mixed $callsign
+     * @param string $callsign
      */
     public function setCallsign($callsign)
     {
@@ -95,7 +95,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCallsign()
     {
@@ -103,7 +103,7 @@ class Character
     }
 
     /**
-     * @param mixed $createDate
+     * @param string $createDate
      */
     public function setCreateDate($createDate)
     {
@@ -111,7 +111,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCreateDate()
     {
@@ -119,7 +119,7 @@ class Character
     }
 
     /**
-     * @param mixed $description
+     * @param string $description
      */
     public function setDescription($description)
     {
@@ -127,7 +127,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDescription()
     {
@@ -135,7 +135,7 @@ class Character
     }
 
     /**
-     * @param mixed $homeworld
+     * @param string $homeworld
      */
     public function setHomeworld($homeworld)
     {
@@ -143,7 +143,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getHomeworld()
     {
@@ -151,7 +151,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getId()
     {
@@ -159,7 +159,7 @@ class Character
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -167,7 +167,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -175,7 +175,7 @@ class Character
     }
 
     /**
-     * @param mixed $plotPoints
+     * @param integer $plotPoints
      */
     public function setPlotPoints($plotPoints)
     {
@@ -183,7 +183,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getPlotPoints()
     {
@@ -191,7 +191,7 @@ class Character
     }
 
     /**
-     * @param mixed $stunRating
+     * @param integer $stunRating
      */
     public function setStunRating($stunRating)
     {
@@ -199,7 +199,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getStunRating()
     {
@@ -207,7 +207,7 @@ class Character
     }
 
     /**
-     * @param mixed $woundRating
+     * @param integer $woundRating
      */
     public function setWoundRating($woundRating)
     {
@@ -215,7 +215,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getWoundRating()
     {
@@ -223,7 +223,7 @@ class Character
     }
 
     /**
-     * @param mixed $active
+     * @param boolean $active
      */
     public function setActive($active)
     {
@@ -231,7 +231,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     public function getActive()
     {
@@ -239,7 +239,7 @@ class Character
     }
 
     /**
-     * @param mixed $rank
+     * @param Rank $rank
      */
     public function setRank($rank)
     {
@@ -247,7 +247,7 @@ class Character
     }
 
     /**
-     * @return mixed
+     * @return Rank
      */
     public function getRank()
     {

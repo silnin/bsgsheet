@@ -8,19 +8,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-//use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-//use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-//use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-//use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
 use Silnin\BsgSheet\CharacterBundle\Entity\Character;
 
-
 /**
- * Character controller.
+ * Character Creation controller.
  *
  * @Route("/character")
  */
-class CharacterController extends Controller
+class CreationController extends Controller
 {
     /**
      * Choose how to finalize this character: manually or through a wizard
@@ -29,14 +25,32 @@ class CharacterController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function createAndWizardBaseCharacter()
+    public function createAndWizardBaseCharacterAction()
     {
         /** @var CharacterService $characterService */
         $characterService = $this->get('character.service');
         $character = $characterService->createBaseCharacter();
 
-        $path = '/character/' . $character->getId() . '/rank';
-        return $this->redirectToRoute($path, array($character->getId()));
+        return $this->forward('CharacterBundle:Rank:createRank', array(
+            'characterId'  => $character->getId(),
+        ));
+        // return $this->redirectToRoute('character_create_rank', array('id'=>$character->getId()));
+    }
+
+    /**
+     * Choose how to finalize this character: manually or through a wizard
+     *
+     * @Route("/createAndEdit", name="character_create_and_edit")
+     * @Method("GET")
+     * @Template()
+     */
+    public function createAndEditBaseCharacterAction()
+    {
+        /** @var CharacterService $characterService */
+        $characterService = $this->get('character.service');
+        $character = $characterService->createBaseCharacter();
+
+        return $this->redirectToRoute('character_edit', array('id'=>$character->getId()));
     }
 
     /**
@@ -46,25 +60,8 @@ class CharacterController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function selectCreateMode()
+    public function selectCreateModeAction()
     {
-        // display choice: manual or wizard?
-        return array('manual_path'=>'/createAndEdit', 'wizard_path'=>'/createAndWizard');
-
-        //@todo direct edit or wizard of this character (do in template)
-    }
-
-    /**
-     * Choose a rank for this character
-     *
-     * @Route("/{id}/rank", name="character_rank")
-     * @Method("GET")
-     * @Template()
-     *
-     * @param integer $id
-     */
-    public function selectRank($id)
-    {
-        //@todo redirects to next question (custom rank or attributes buy
+        return array();
     }
 }

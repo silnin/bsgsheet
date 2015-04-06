@@ -1,0 +1,25 @@
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('bundles/character/css/style.css') }}" />
+{% endblock %}
+
+{% block body -%}
+    <div id="menu">
+        {{ render(controller(
+        'DashboardBundle:Menu:dashboardMenu',
+        {}
+        )) }}
+    </div>
+
+    <h1>Select Rank</h1><br/>
+    (for char {{ characterId }}, that is)
+
+    <br/>
+
+    {% for rank in ranks %}
+        <div id="rank-div">
+            <a href="{{ path('character_set_rank', { 'characterId': characterId, 'rankName': rank }) }}" class="fill-div">{{ rank }}</a>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+

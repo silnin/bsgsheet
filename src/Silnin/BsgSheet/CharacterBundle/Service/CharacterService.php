@@ -46,31 +46,36 @@ class CharacterService
      */
     public function createBaseCharacter($persist = true)
     {
-        //
         $character = new Character();
-        $character->setAdvancementPoints(0);
-        $character->setCallsign('');
-        $character->setCreateDate(date('Y-m-d H:i:s'));
-        $character->setDescription('Description here');
-        $character->setHomeworld('');
         $character->setName('My guy');
+        $character->setCreateDate(new \DateTime("now"));
+        $character->setAdvancementPoints(0);
         $character->setPlotPoints(0);
         $character->setStunRating(0);
         $character->setWoundRating(0);
         $character->setActive(false);
+
+        //$character->setCallsign('');
+        //$character->setDescription('Description here');
+        //$character->setHomeworld('');
 
         // persist
         if ($persist) {
             $this->storeCharacter($character);
         }
 
+        // make current user owner
+        $this->securityService->grantAccessToOwnContent($character);
+
         return $character;
     }
 
-    private function storeCharacter(Character $character)
+    public function storeCharacter(Character $character)
     {
         $this->entityManager->persist($character);
         $this->entityManager->flush();
+
+//        $this->securityService->grantAccessToOwnContent($character);
     }
 }
 

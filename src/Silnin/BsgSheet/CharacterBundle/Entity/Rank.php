@@ -9,6 +9,22 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Rank
 {
+    const RANK_NANE_RECRUIT = 'recruit';
+    const RANK_NANE_VETERAN = 'veteran';
+    const RANK_NANE_SEASONED_VETERAN = 'seasoned veteran';
+
+    const ATTRIBUTE_POINTS_RECRUIT = '42';
+    const ATTRIBUTE_POINTS_VETERAN = '42';
+    const ATTRIBUTE_POINTS_SEASONED_VETEREAN = '42';
+
+    const SKILL_POINTS_RECRUIT = '62';
+    const SKILL_POINTS_VETERAN = '62';
+    const SKILL_POINTS_SEASONED_VETERAN = '62';
+
+    const TRAIT_POINTS_RECRUIT = '0';
+    const TRAIT_POINTS_VETERAN = '0';
+    const TRAIT_POINTS_SEASONED_VETERAN = '0';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -17,7 +33,7 @@ class Rank
     protected $id;
 
     /**
-     * @ORM\Column(name="name", type="string", columnDefinition="ENUM('recruit', 'veteran', 'seasoned veteran', 'custom')", unique=false, nullable=false)
+     * @ORM\Column(name="name", type="string", length=32, unique=false, nullable=false)
      */
     protected $name;
 

@@ -3,6 +3,8 @@ parameters:
     silnin.bsgsheet.character.repository.factory_argument:   Silnin\BsgSheet\CharacterBundle\Entity\Character
     silnin.bsgsheet.character.service.class:                 Silnin\BsgSheet\CharacterBundle\Service\CharacterService
     silnin.bsgsheet.character.security.service.class:        Silnin\BsgSheet\CharacterBundle\Service\CharacterSecurityService
+    silnin.bsgsheet.rank.service.class:                      Silnin\BsgSheet\CharacterBundle\Service\RankService
+
 
 services:
     character.repository:
@@ -24,3 +26,8 @@ services:
             - @security.authorization_checker
             - @security.token_storage
             - @security.acl.provider
+
+    rank.service:
+        class:            "%silnin.bsgsheet.rank.service.class%"
+        arguments:
+            - @doctrine.orm.entity_manager
