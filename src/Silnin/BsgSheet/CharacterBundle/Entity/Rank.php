@@ -9,21 +9,22 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Rank
 {
+    //@todo this configuration would be nice to have in parameters or database
     const RANK_NANE_RECRUIT = 'recruit';
     const RANK_NANE_VETERAN = 'veteran';
     const RANK_NANE_SEASONED_VETERAN = 'seasoned veteran';
 
     const ATTRIBUTE_POINTS_RECRUIT = '42';
-    const ATTRIBUTE_POINTS_VETERAN = '42';
-    const ATTRIBUTE_POINTS_SEASONED_VETEREAN = '42';
+    const ATTRIBUTE_POINTS_VETERAN = '48';
+    const ATTRIBUTE_POINTS_SEASONED_VETEREAN = '54';
 
     const SKILL_POINTS_RECRUIT = '62';
-    const SKILL_POINTS_VETERAN = '62';
-    const SKILL_POINTS_SEASONED_VETERAN = '62';
+    const SKILL_POINTS_VETERAN = '68';
+    const SKILL_POINTS_SEASONED_VETERAN = '74';
 
     const TRAIT_POINTS_RECRUIT = '0';
-    const TRAIT_POINTS_VETERAN = '0';
-    const TRAIT_POINTS_SEASONED_VETERAN = '0';
+    const TRAIT_POINTS_VETERAN = '4';
+    const TRAIT_POINTS_SEASONED_VETERAN = '8';
 
     /**
      * @ORM\Id
