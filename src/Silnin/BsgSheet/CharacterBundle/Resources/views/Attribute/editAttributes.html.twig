@@ -3,16 +3,33 @@
 {% endblock %}
 
 {% block body -%}
-<div id="menu">
-    {{ render(controller(
-    'DashboardBundle:Menu:dashboardMenu',
-    {}
-    )) }}
-</div>
+    <div id="menu">
+        {{ render(controller(
+        'DashboardBundle:Menu:dashboardMenu',
+        {}
+        )) }}
+    </div>
 
-<h1>Buy your attributes!</h1><br/>
-(for char {{ characterId }}, that is)
+    <h1>Buy your attributes!</h1><br/>
+    (for char {{ characterId }}, that is)
 
-<br/>
+    <br/>
+
+    REMAINING ATTRIBUTE POINTS: {{ character.rank.getAttributePoints }}<br/>
+
+    <div class="attributes_content">
+        {% for attribute in character.attributes %}
+            <div class="attribute_row">
+                {#{{ render(controller(#}
+                {#'CharacterBundle:Attribute:dashboardMenu',#}
+                {#{}#}
+                {#)) }}#}
+
+                {{ attribute.getType }} - {{ attribute.getStep }}<br/>
+            </div>
+        {% endfor %}
+    </div>
+    <br/>
+    here some explanation about costs
 
 {% endblock %}

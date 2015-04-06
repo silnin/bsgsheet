@@ -9,14 +9,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Rank
 {
-    //@todo this configuration would be nice to have in parameters or database
+    //@todo 2015-04-06 - this configuration would be nice to have in parameters or database
     const RANK_NANE_RECRUIT = 'recruit';
     const RANK_NANE_VETERAN = 'veteran';
     const RANK_NANE_SEASONED_VETERAN = 'seasoned veteran';
 
     const ATTRIBUTE_POINTS_RECRUIT = '42';
     const ATTRIBUTE_POINTS_VETERAN = '48';
-    const ATTRIBUTE_POINTS_SEASONED_VETEREAN = '54';
+    const ATTRIBUTE_POINTS_SEASONED_VETERAN = '54';
 
     const SKILL_POINTS_RECRUIT = '62';
     const SKILL_POINTS_VETERAN = '68';
@@ -52,6 +52,20 @@ class Rank
      * @ORM\Column(name="trait_points", type="integer")
      */
     protected $traitPoints;
+
+    /**
+     * @param string $name
+     * @param integer $attributePoints
+     * @param integer $skillPoints
+     * @param integer $traitPoints
+     */
+    public function __construct($name, $attributePoints, $skillPoints, $traitPoints)
+    {
+        $this->name = $name;
+        $this->attributePoints = $attributePoints;
+        $this->skillPoints = $skillPoints;
+        $this->traitPoints = $traitPoints;
+    }
 
     /**
      * @param mixed $attributePoints

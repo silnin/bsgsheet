@@ -4,7 +4,7 @@ parameters:
     silnin.bsgsheet.character.service.class:                 Silnin\BsgSheet\CharacterBundle\Service\CharacterService
     silnin.bsgsheet.character.security.service.class:        Silnin\BsgSheet\CharacterBundle\Service\CharacterSecurityService
     silnin.bsgsheet.rank.service.class:                      Silnin\BsgSheet\CharacterBundle\Service\RankService
-
+    silnin.bsgsheet.attribute.service.class:                 Silnin\BsgSheet\CharacterBundle\Service\AttributeService
 
 services:
     character.repository:
@@ -19,6 +19,7 @@ services:
         arguments:
             - @doctrine.orm.entity_manager
             - @character.security.service
+            - @attribute.service
 
     character.security.service:
         class:            "%silnin.bsgsheet.character.security.service.class%"
@@ -29,5 +30,6 @@ services:
 
     rank.service:
         class:            "%silnin.bsgsheet.rank.service.class%"
-        arguments:
-            - @doctrine.orm.entity_manager
+
+    attribute.service:
+        class:            "%silnin.bsgsheet.attribute.service.class%"

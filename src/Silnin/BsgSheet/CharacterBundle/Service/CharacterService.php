@@ -4,6 +4,7 @@ namespace Silnin\BsgSheet\CharacterBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Silnin\BsgSheet\CharacterBundle\Entity\Character;
+use Silnin\BsgSheet\CharacterBundle\Service\AttributeService;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Silnin\BsgSheet\CharacterBundle\Service\CharacterSecurityService;
@@ -17,14 +18,22 @@ class CharacterService
     /** @var CharacterSecurityService  */
     protected $securityService;
 
+    /** @var AttributeService  */
+    protected $attributeService;
+
     /**
      * @param EntityManager $em
      * @param CharacterSecurityService $securityService
+     * @param AttributeService $attributeService
      */
-    public function __construct(EntityManager $em, CharacterSecurityService $securityService)
+    public function __construct(
+        EntityManager $em,
+        CharacterSecurityService $securityService,
+        AttributeService $attributeService)
     {
         $this->entityManager = $em;
         $this->securityService = $securityService;
+        $this->attributeService = $attributeService;
     }
 
     /**
@@ -58,6 +67,8 @@ class CharacterService
         //$character->setCallsign('');
         //$character->setDescription('Description here');
         //$character->setHomeworld('');
+
+        $this->attributeService->createAttributesForBaseCharacter($character);
 
         // persist
         if ($persist) {

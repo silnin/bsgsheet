@@ -71,10 +71,12 @@ class RankController extends Controller
         $characterService = $this->get('character.service');
         $characterService->storeCharacter($character);
 
+        return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+
         // forward to ....point buyaroo!
-        return $this->forward('CharacterBundle:Attribute:editAttributes', array(
-            'characterId'  => $characterId,
-        ));
+//        return $this->forward('CharacterBundle:Attribute:editAttributes', array(
+//            'characterId'  => $characterId,
+//        ));
     }
 }
 

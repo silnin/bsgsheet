@@ -1,6 +1,7 @@
 <?php
 namespace Silnin\BsgSheet\CharacterBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -69,6 +70,16 @@ class Character
      * @ORM\JoinColumn(name="rank_id", referencedColumnName="id", nullable=true)
      **/
     protected $rank;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Attribute", mappedBy="character", cascade={"persist", "remove"})
+     **/
+    protected $attributes;
+
+    public function __construct()
+    {
+        $this->attributes = new ArrayCollection();
+    }
 
     /**
      * @param integer $advancementPoints
@@ -252,5 +263,21 @@ class Character
     public function getRank()
     {
         return $this->rank;
+    }
+
+    /**
+     * @param ArrayCollection $attributes
+     */
+    public function setAttributes($attributes)
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
     }
 }

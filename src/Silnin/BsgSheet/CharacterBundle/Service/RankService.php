@@ -2,26 +2,10 @@
 
 namespace Silnin\BsgSheet\CharacterBundle\Service;
 
-use Doctrine\ORM\EntityManager;
-//use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Silnin\BsgSheet\CharacterBundle\Entity\Rank;
 
 class RankService
 {
-    /** @var EntityManager  */
-    protected $entityManager;
-
-    /** @var CharacterSecurityService  */
-    protected $securityService;
-
-    /**
-     * @param EntityManager $em
-     */
-    public function __construct(EntityManager $em)
-    {
-        $this->entityManager = $em;
-    }
-
     /**
      * @param string $rankName
      * @return Rank
@@ -47,13 +31,12 @@ class RankService
      */
     private function createRecruit()
     {
-        $rank = new Rank();
-        $rank->setName(ucfirst(Rank::RANK_NANE_RECRUIT));
-        $rank->setAttributePoints(Rank::ATTRIBUTE_POINTS_RECRUIT);
-        $rank->setSkillPoints(Rank::SKILL_POINTS_RECRUIT);
-        $rank->setTraitPoints(Rank::TRAIT_POINTS_RECRUIT);
-
-        return $rank;
+        return new Rank(
+            ucfirst(Rank::RANK_NANE_RECRUIT),
+            Rank::ATTRIBUTE_POINTS_RECRUIT,
+            Rank::SKILL_POINTS_RECRUIT,
+            Rank::TRAIT_POINTS_RECRUIT
+        );
     }
 
     /**
@@ -61,13 +44,12 @@ class RankService
      */
     private function createVeteran()
     {
-        $rank = new Rank();
-        $rank->setName(ucfirst(Rank::RANK_NANE_VETERAN));
-        $rank->setAttributePoints(Rank::ATTRIBUTE_POINTS_RECRUIT);
-        $rank->setSkillPoints(Rank::SKILL_POINTS_RECRUIT);
-        $rank->setTraitPoints(Rank::TRAIT_POINTS_RECRUIT);
-
-        return $rank;
+        return new Rank(
+            ucfirst(Rank::RANK_NANE_VETERAN),
+            Rank::ATTRIBUTE_POINTS_VETERAN,
+            Rank::SKILL_POINTS_VETERAN,
+            Rank::TRAIT_POINTS_VETERAN
+        );
     }
 
     /**
@@ -75,12 +57,11 @@ class RankService
      */
     private function createSeasonedVeteran()
     {
-        $rank = new Rank();
-        $rank->setName(ucfirst(Rank::RANK_NANE_SEASONED_VETERAN));
-        $rank->setAttributePoints(Rank::ATTRIBUTE_POINTS_RECRUIT);
-        $rank->setSkillPoints(Rank::SKILL_POINTS_RECRUIT);
-        $rank->setTraitPoints(Rank::TRAIT_POINTS_RECRUIT);
-
-        return $rank;
+        return new Rank(
+            ucfirst(Rank::RANK_NANE_SEASONED_VETERAN),
+            Rank::ATTRIBUTE_POINTS_SEASONED_VETERAN,
+            Rank::SKILL_POINTS_SEASONED_VETERAN,
+            Rank::TRAIT_POINTS_SEASONED_VETERAN
+        );
     }
 }
