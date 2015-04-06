@@ -2,6 +2,8 @@
 
 namespace Silnin\BsgSheet\CharacterBundle\Controller;
 
+use Silnin\BsgSheet\CharacterBundle\Entity\Attribute;
+use Silnin\BsgSheet\CharacterBundle\Entity\Character;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -49,13 +51,65 @@ class AttributeController extends Controller
      * @param integer $attributeId
      * @return array
      */
-    public function buyAttribute($characterId, $attributeId)
+    public function buyAttributeAction($characterId, $attributeId)
     {
-        // check if the rank has enough points
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Character $character */
+        $character = $em->getRepository('CharacterBundle:Character')->find($characterId);
+
+        /** @var Attribute $attribute */
+        $attribute = $em->getRepository('CharacterBundle:Attribute')->find($attributeId);
+
+        ///** @var Rank $attribute */
+        //$attribute = $em->getRepository('CharacterBundle:Attribute')->find($attributeId);
+
+        $cost = 2;
+        $stepUp = 1;
+
+        // check price for this purchase
         // (if this attribute = 0, then cost = 4, but gets die 2)
         // (else cost is 2 and step goes up 1)
+        if ($attribute->getStep() == 0) {
+            $cost = 4;
+            $stepUp = 2;
+        }
+
+        // check if the rank has enough points
+        if ($character->getRank()->getAttributePoints() < $cost) {
+            // NOK: Not enough saldo: flash notice?
+            $this->addFlash(
+                'notice',
+                'You don\'t have enough Attribute Points to buy more ' . $attribute->getType()
+            );
+            // redirect back character_edit_attributes
+            return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+        }
+
+        // confirm > store character
+
+        // reduce attribute points by cost
+        $character->getRank()->setAttributePoints(($character->getRank()->getAttributePoints()-$cost));
+
+        $em->persist($character);
+
+        // add step
+        $newStep = $attribute->getStep() + $stepUp;
+        $attribute->setStep($newStep);
+
+        $em->persist($attribute);
+
+        // $character->getAttributes()->add($attribute);
+        $em->flush();
+
+        // OK flash
+        $this->addFlash(
+            'notice',
+            $attribute->getType() . ' upgraded!'
+        );
 
         // redirect back character_edit_attributes
+        return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
     }
 }
 
