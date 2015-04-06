@@ -10,26 +10,46 @@
         )) }}
     </div>
 
-    <h1>Buy your attributes!</h1><br/>
-    (for char {{ characterId }}, that is)
-
+    <h1>Buy your attributes!</h1>
+    <a href="{{ path('character_show', { 'id': characterId }) }}">Back to {{ character.getName }}</a>
+    <br/>
     <br/>
 
     REMAINING ATTRIBUTE POINTS: {{ character.rank.getAttributePoints }}<br/>
-
+    <br/>
     <div class="attributes_content">
+        <table>
+            <tr>
+                <th>Atrribute</th>
+                <th>Die</th>
+                <th>Options</th>
+            </tr>
         {% for attribute in character.attributes %}
-            <div class="attribute_row">
-                {#{{ render(controller(#}
-                {#'CharacterBundle:Attribute:dashboardMenu',#}
-                {#{}#}
-                {#)) }}#}
-
-                {{ attribute.getType }} - {{ attribute.getStep }}<br/>
-            </div>
+            <tr>
+            {#<div class="attribute_row">#}
+                <td>{{ attribute.getType }}</td>
+                <td>{{ render(controller(
+                    'CharacterBundle:Die:translateDie',
+                    { 'step': attribute.getStep }
+                    )) }}</td>
+                <td><a href="{{ path('character_buy_attribute', { 'characterId': characterId, 'attributeId': attribute.getId }) }}">buy</a></td>
+            </tr>
         {% endfor %}
+        </table>
     </div>
     <br/>
-    here some explanation about costs
+    <table>
+        <tr>
+            <th>Die Type</th>
+            <th>Point Cost</th>
+        </tr>
+        <tr><td>d4</td><td>4</td></tr>
+        <tr><td>d6</td><td>6</td></tr>
+        <tr><td>d8</td><td>8</td></tr>
+        <tr><td>d10</td><td>10</td></tr>
+        <tr><td>d12</td><td>12</td></tr>
+        <tr><td>d12+d2</td><td>14</td></tr>
+        <tr><td>d12+d4</td><td>16</td></tr>
+    </table>
 
 {% endblock %}

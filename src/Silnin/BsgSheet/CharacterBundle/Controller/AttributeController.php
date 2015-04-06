@@ -38,11 +38,24 @@ class AttributeController extends Controller
         );
     }
 
-    public function buyAttribute($characterId, $attributeType)
+    /**
+     * Choose a rank for this character
+     *
+     * @Route("/{characterId}/buy-attribute/{$attributeId}", name="character_buy_attribute")
+     * @Method("GET")
+     * @Template()
+     *
+     * @param integer $characterId
+     * @param integer $attributeId
+     * @return array
+     */
+    public function buyAttribute($characterId, $attributeId)
     {
         // check if the rank has enough points
         // (if this attribute = 0, then cost = 4, but gets die 2)
         // (else cost is 2 and step goes up 1)
+
+        // redirect back character_edit_attributes
     }
 }
 

@@ -22,7 +22,7 @@ use Silnin\BsgSheet\CharacterBundle\Form\CharacterType;
  *
  * @Route("/characterOld")
  */
-class CharacterController extends Controller
+class CharacterOldController extends Controller
 {
     /**
      * Lists all Character entities.

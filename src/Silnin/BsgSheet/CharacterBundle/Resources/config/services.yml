@@ -5,6 +5,7 @@ parameters:
     silnin.bsgsheet.character.security.service.class:        Silnin\BsgSheet\CharacterBundle\Service\CharacterSecurityService
     silnin.bsgsheet.rank.service.class:                      Silnin\BsgSheet\CharacterBundle\Service\RankService
     silnin.bsgsheet.attribute.service.class:                 Silnin\BsgSheet\CharacterBundle\Service\AttributeService
+    silnin.bsgsheet.die.service.class:                       Silnin\BsgSheet\CharacterBundle\Service\DieService
 
 services:
     character.repository:
@@ -33,3 +34,6 @@ services:
 
     attribute.service:
         class:            "%silnin.bsgsheet.attribute.service.class%"
+
+    die.service:
+        class:            "%silnin.bsgsheet.die.service.class%"

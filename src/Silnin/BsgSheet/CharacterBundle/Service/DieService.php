@@ -4,23 +4,28 @@ namespace Silnin\BsgSheet\CharacterBundle\Service;
 
 class DieService
 {
-    const DIE_0 = '';
-    const DIE_1 = 'd2';
-    const DIE_2 = 'd4';
-    const DIE_3 = 'd6';
-    const DIE_4 = 'd8';
-    const DIE_5 = 'd10';
-    const DIE_6 = 'd12';
-    const DIE_7 = 'd12+d2';
-    const DIE_8 = 'd12+d4';
-    const DIE_9 = 'd12+d6';
-    const DIE_10 = 'd12+d8';
-    const DIE_11 = 'd12+d10';
-    const DIE_12 = 'd12+d12';
-
-    // i might want to use this for translations. die 1 = d2, die 2 = d4...that we i can do 'allowed dice' for skills, for example....its a hashmap i guess
+    /**
+     * translates a die type (integer 1 to infinite) into a string of dice from d2 to d12. 1=d2,6=d12, interval of 2
+     *
+     * @param integer $die
+     * @return string
+     */
     public function translateDie($die) {
-        $constName = 'DIE_' . $die;
-        return self::$$constName;
+        $result = '';
+
+        if ($die == 0) {
+            return '0';
+        }
+
+        if ($die > 6) {
+            $result .= '+d12';
+            $die -= 6;
+            $result .= $this->translateDie($die);
+        } else
+        {
+            $result .= '+d' . ($die*2);
+        }
+
+        return $result;
     }
 }
