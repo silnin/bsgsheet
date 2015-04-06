@@ -25,33 +25,33 @@ class CharacterController extends Controller
     /**
      * Choose how to finalize this character: manually or through a wizard
      *
-     * @Route("/create", name="character_create")
+     * @Route("/createAndWizard", name="character_create_and_wizard")
      * @Method("GET")
      * @Template()
      */
-    public function createBaseCharacter()
+    public function createAndWizardBaseCharacter()
     {
         /** @var CharacterService $characterService */
         $characterService = $this->get('character.service');
         $character = $characterService->createBaseCharacter();
 
-        //@todo store character in session? or i in url..is better i think...
-
-        //@todo redirect wiz or manual
+        $path = '/character/' . $character->getId() . '/rank';
+        return $this->redirectToRoute($path, array($character->getId()));
     }
 
     /**
      * Choose how to finalize this character: manually or through a wizard
      *
-     * @Route("/{id}/create", name="character_createstyle")
+     * @Route("/new", name="character_select_create_style")
      * @Method("GET")
      * @Template()
-     *
-     * @param integer $id
      */
-    public function selectCreateMode($id)
+    public function selectCreateMode()
     {
-        //@todo direct edit or wizard of this character
+        // display choice: manual or wizard?
+        return array('manual_path'=>'/createAndEdit', 'wizard_path'=>'/createAndWizard');
+
+        //@todo direct edit or wizard of this character (do in template)
     }
 
     /**

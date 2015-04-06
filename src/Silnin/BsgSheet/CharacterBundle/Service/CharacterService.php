@@ -41,10 +41,12 @@ class CharacterService
     /**
      * Create an empty character
      *
+     * @param boolean $persist
      * @return Character
      */
-    public function createBaseCharacter()
+    public function createBaseCharacter($persist = true)
     {
+        //
         $character = new Character();
         $character->setAdvancementPoints(0);
         $character->setCallsign('');
@@ -57,11 +59,18 @@ class CharacterService
         $character->setWoundRating(0);
         $character->setActive(false);
 
-        // create a rank? (done by RankService of course)
-
-        // persist?
+        // persist
+        if ($persist) {
+            $this->storeCharacter($character);
+        }
 
         return $character;
+    }
+
+    private function storeCharacter(Character $character)
+    {
+        $this->entityManager->persist($character);
+        $this->entityManager->flush();
     }
 }
 
