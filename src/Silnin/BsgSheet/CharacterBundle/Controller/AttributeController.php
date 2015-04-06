@@ -41,7 +41,7 @@ class AttributeController extends Controller
     /**
      * Choose a rank for this character
      *
-     * @Route("/{characterId}/buy-attribute/{$attributeId}", name="character_buy_attribute")
+     * @Route("/{characterId}/buy-attribute/{attributeId}", name="character_buy_attribute")
      * @Method("GET")
      * @Template()
      *
