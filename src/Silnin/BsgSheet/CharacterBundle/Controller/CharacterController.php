@@ -20,7 +20,7 @@ use Silnin\BsgSheet\CharacterBundle\Form\CharacterType;
 /**
  * Character controller.
  *
- * @Route("/character")
+ * @Route("/characterOld")
  */
 class CharacterController extends Controller
 {

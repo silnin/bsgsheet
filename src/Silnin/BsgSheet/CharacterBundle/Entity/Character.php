@@ -17,6 +17,11 @@ class Character
     protected $id;
 
     /**
+     * @ORM\Column(name="active", type="boolean")
+     */
+    protected $active;
+
+    /**
      * @ORM\Column(name="name", type="string", length=64, unique=false, nullable=false)
      */
     protected $name;
@@ -58,6 +63,12 @@ class Character
      * @ORM\Column(name="stun_rating", type="integer")
      */
     protected $stunRating;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Rank")
+     * @ORM\JoinColumn(name="rank_id", referencedColumnName="id", nullable=true)
+     **/
+    protected $rank;
 
     /**
      * @param mixed $advancementPoints
@@ -139,14 +150,6 @@ class Character
         return $this->homeworld;
     }
 
-//    /**
-//     * @param mixed $id
-//     */
-//    public function setId($id)
-//    {
-//        $this->id = $id;
-//    }
-
     /**
      * @return mixed
      */
@@ -219,5 +222,35 @@ class Character
         return $this->woundRating;
     }
 
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $rank
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
 }
