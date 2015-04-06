@@ -53,11 +53,11 @@ class RankController extends Controller
      */
     public function setRankAction($characterId, $rankName)
     {
-        /** @var CharacterService $characterService */
-        $characterService = $this->get('character.service');
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
 
         /** @var Character $character */
-        $character = $characterService->createBaseCharacter();
+        $character = $em->getRepository('CharacterBundle:Character')->find($characterId);
 
         /** @var RankService $rankService */
         $rankService = $this->get('rank.service');
@@ -66,6 +66,9 @@ class RankController extends Controller
         $rank = $rankService->createRank($rankName);
 
         $character->setRank($rank);
+
+        /** @var CharacterService $characterService */
+        $characterService = $this->get('character.service');
         $characterService->storeCharacter($character);
 
         // forward to ....point buyaroo!
