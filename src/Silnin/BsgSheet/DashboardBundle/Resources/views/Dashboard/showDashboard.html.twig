@@ -17,32 +17,52 @@
     <table class="records_list">
         <thead>
         <tr>
-            <th>Id</th>
+            {#<th>Id</th>#}
             <th>Name</th>
             <th>Createdate</th>
-            <th>Description</th>
-            <th>Homeworld</th>
             <th>Callsign</th>
-            <th>Plotpoints</th>
-            <th>Advancementpoints</th>
-            <th>Woundrating</th>
-            <th>Stunrating</th>
+            <th>AP</th>
+            <th>Attributes</th>
             <th>Actions</th>
+
+            {#<th>Description</th>#}
+            {#<th>Homeworld</th>#}
+            {#<th>Plotpoints</th>#}
+
+            {#<th>Woundrating</th>#}
+            {#<th>Stunrating</th>#}
+
         </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('character_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {#<td><a href="{{ path('character_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>#}
                 <td>{{ entity.name }}</td>
                 <td>{% if entity.createDate %}{{ entity.createDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.description }}</td>
-                <td>{{ entity.homeworld }}</td>
-                <td>{{ entity.callsign }}</td>
-                <td>{{ entity.plotPoints }}</td>
+                {#<td>{{ entity.description }}</td>#}
+                {#<td>{{ entity.homeworld }}</td>#}
+                <td>{{ entity.getRank.getName }} {{ entity.callsign }}</td>
+                {#<td>{{ entity.plotPoints }}</td>#}
                 <td>{{ entity.advancementPoints }}</td>
-                <td>{{ entity.woundRating }}</td>
-                <td>{{ entity.stunRating }}</td>
+                {#<td>{{ entity.woundRating }}</td>#}
+                {#<td>{{ entity.stunRating }}</td>#}
+                <td>
+                    <table>
+                        {% for attribute in entity.getAttributes %}
+                            <tr>
+                                <td>{{ attribute.getType }}</td>
+                                <td>
+                                {{ render(controller(
+                                        'CharacterBundle:Die:translateDie',
+                                        { 'step': attribute.getStep }
+                                        )) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+
                 <td>
                     <ul>
                         <li>
