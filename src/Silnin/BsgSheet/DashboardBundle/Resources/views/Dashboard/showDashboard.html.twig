@@ -1,17 +1,29 @@
 {% block head %}
+    <link rel="stylesheet" href="{{ asset('bundles/character/css/style.css') }}" />
     {#<link rel="icon" sizes="16x16" href="{{ asset('bundles/silninuser/images/cylon.ico') }}" />#}
     {#<link rel="stylesheet" href="{{ asset('bundles/silninuser/css/style.css') }}" />#}
 {% endblock %}
 {#{% block title 'Battlestar Galactica Sheet' %}#}
 
 {% block body -%}
+    {% block menu -%}
     <div id="menu">
         {{ render(controller(
             'DashboardBundle:Menu:dashboardMenu',
             {}
         )) }}
     </div>
+    {% endblock %}
 
+    {% block flash -%}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="flash-notice">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+    {% block content -%}
     <h1>Character list</h1>
 
     <table class="records_list">
@@ -85,4 +97,5 @@
             </a>
         </li>
     </ul>
+    {% endblock %}
 {% endblock %}

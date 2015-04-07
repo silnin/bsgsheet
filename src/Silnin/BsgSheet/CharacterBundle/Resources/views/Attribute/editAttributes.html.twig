@@ -1,48 +1,17 @@
-{% block head %}
-    <link rel="stylesheet" href="{{ asset('bundles/character/css/style.css') }}" />
-{% endblock %}
+{% extends 'DashboardBundle:Dashboard:showDashboard.html.twig' %}
 
-
-{% block body -%}
-    <div id="menu">
-        {{ render(controller(
-        'DashboardBundle:Menu:dashboardMenu',
-        {}
-        )) }}
-    </div>
-
-    {% for flashMessage in app.session.flashbag.get('notice') %}
-        <div class="flash-notice">
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
-
+{% block content -%}
     <h1>Buy your attributes!</h1>
     <a href="{{ path('character_show', { 'id': characterId }) }}">Back to {{ character.getName }}</a>
+    <br/>
+    Meneer zn strength is {{ character.getStrength }}<br/>
     <br/>
     <br/>
 
     REMAINING ATTRIBUTE POINTS: {{ character.rank.getAttributePoints }}<br/>
     <br/>
     <div class="attributes_content">
-        <table>
-            <tr>
-                <th>Atrribute</th>
-                <th>Die</th>
-                <th>Options</th>
-            </tr>
-        {% for attribute in character.attributes %}
-            <tr>
-            {#<div class="attribute_row">#}
-                <td>{{ attribute.getType }}</td>
-                <td>{{ render(controller(
-                    'CharacterBundle:Die:translateDie',
-                    { 'step': attribute.getStep }
-                    )) }}</td>
-                <td><a href="{{ path('character_buy_attribute', { 'characterId': characterId, 'attributeId': attribute.getId }) }}">buy</a></td>
-            </tr>
-        {% endfor %}
-        </table>
+        {% include 'CharacterBundle:Attribute:ShowEditableAttributes.html.twig' %}
     </div>
     <br/>
     <table>

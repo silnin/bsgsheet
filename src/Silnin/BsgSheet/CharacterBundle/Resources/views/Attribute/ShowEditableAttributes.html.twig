@@ -1,0 +1,13 @@
+<table>
+    <tr>
+        <th>Atrribute</th>
+        <th>Die</th>
+        <th>Increase</th>
+        <th>Decrease</th>
+    </tr>
+    {% for attribute in character.attributes %}
+        <tr>
+            {% include 'CharacterBundle:Attribute:ShowEditableAttribute.html.twig' %}
+        </tr>
+    {% endfor %}
+</table>

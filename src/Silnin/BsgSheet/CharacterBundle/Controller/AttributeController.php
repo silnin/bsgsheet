@@ -7,6 +7,7 @@ use Silnin\BsgSheet\CharacterBundle\Entity\Character;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Doctrine\ORM\EntityManager;
@@ -43,9 +44,60 @@ class AttributeController extends Controller
     /**
      * Choose a rank for this character
      *
+     * @Route("/{characterId}/sell-attribute/{attributeId}", name="character_sell_attribute")
+     * @Method("GET")
+     *
+     * @param integer $characterId
+     * @param integer $attributeId
+     * @return array
+     */
+    public function sellAttributeAction($characterId, $attributeId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Character $character */
+        $character = $em->getRepository('CharacterBundle:Character')->find($characterId);
+
+        /** @var Attribute $attribute */
+        $attribute = $em->getRepository('CharacterBundle:Attribute')->find($attributeId);
+
+        // allow lessing is attribute step is more than minimal step
+        if ($attribute->getStep() <= $attribute->getMinStep()) {
+            // NOK: Not enough saldo: flash notice?
+            $this->addFlash(
+                'notice',
+                $attribute->getType() . ' cannot be lowered.'
+            );
+            // redirect back character_edit_attributes
+            return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+        }
+
+        // ok: +2 attr points. step-1
+        $loweredStep = $attribute->getStep()-1;
+        $increasedAttributePoints = $character->getRank()->getAttributePoints() + 2;
+
+        $attribute->setStep($loweredStep);
+        $character->getRank()->setAttributePoints($increasedAttributePoints);
+
+        // store updated character
+        $em->persist($character);
+        $em->flush();
+
+        // OK flash
+        $this->addFlash(
+            'notice',
+            $attribute->getType() . ' downgraded'
+        );
+
+        // redirect back character_edit_attributes
+        return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+    }
+
+    /**
+     * Choose a rank for this character
+     *
      * @Route("/{characterId}/buy-attribute/{attributeId}", name="character_buy_attribute")
      * @Method("GET")
-     * @Template()
      *
      * @param integer $characterId
      * @param integer $attributeId

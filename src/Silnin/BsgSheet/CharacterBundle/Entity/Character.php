@@ -3,6 +3,7 @@ namespace Silnin\BsgSheet\CharacterBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @ORM\Entity
@@ -279,5 +280,187 @@ class Character
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    /**
+     * Retrieve a specific Attribute of a given name
+     *
+     * @param string $type
+     * @return Attribute
+     */
+    private function getNamedAttribute($type) {
+        $types = array($type);
+        $criteria = Criteria::create()->where(Criteria::expr()->in("type", $types));
+        return $this->getAttributes()->matching($criteria)->first();
+    }
+
+    /**
+     * Return the step value of the character's strength
+     * @return integer
+     */
+    public function getStrength()
+    {
+        return $this->getNamedAttribute('strength')->getStep();
+    }
+
+    /**
+     * Return the step value of the character's agility
+     * @return integer
+     */
+    public function getAgility()
+    {
+        return $this->getNamedAttribute('agility')->getStep();
+    }
+
+    /**
+     * Return the step value of the character's vitality
+     * @return integer
+     */
+    public function getVitality()
+    {
+        return $this->getNamedAttribute('vitality')->getStep();
+    }
+
+    /**
+     * Return the step value of the character's alertness
+     * @return integer
+     */
+    public function getAlertness()
+    {
+        return $this->getNamedAttribute('alertness')->getStep();
+    }
+
+    /**
+     * Return the step value of the character's intelligence
+     * @return integer
+     */
+    public function getIntelligence()
+    {
+        return $this->getNamedAttribute('intelligence')->getStep();
+    }
+
+    /**
+     * Return the step value of the character's willpower
+     * @return integer
+     */
+    public function getWillpower()
+    {
+        return $this->getNamedAttribute('willpower')->getStep();
+    }
+
+    /**
+     * Return the die type of the character's strength
+     * @return string
+     */
+    public function getStrengthDie()
+    {
+        return $this->translateDie($this->getNamedAttribute('strength')->getStep());
+    }
+
+    /**
+     * Return the die type of the character's agility
+     * @return string
+     */
+    public function getAgilityDie()
+    {
+        return $this->translateDie($this->getNamedAttribute('agility')->getStep());
+    }
+
+    /**
+     * Return the die type of the character's vitality
+     * @return string
+     */
+    public function getVitalityDie()
+    {
+        return $this->translateDie($this->getNamedAttribute('vitality')->getStep());
+    }
+
+    /**
+     * Return the die type of the character's alertness
+     * @return string
+     */
+    public function getAlertnessDie()
+    {
+        return $this->translateDie($this->getNamedAttribute('alertness')->getStep());
+    }
+
+    /**
+     * Return the die type of the character's intelligence
+     * @return string
+     */
+    public function getIntelligenceDie()
+    {
+        return $this->translateDie($this->getNamedAttribute('intelligence')->getStep());
+    }
+
+    /**
+     * Return the die type of the character's willpower
+     * @return string
+     */
+    public function getWillpowerDie()
+    {
+        return $this->translateDie($this->getNamedAttribute('willpower')->getStep());
+    }
+
+    /**
+     * param string $property
+     * return string
+     */
+    public function getDie($property)
+    {
+        // stub for magic function to find the die of any stat (attr, skill, traits, weapon dmg?)
+    }
+
+    /**
+     * @return string
+     */
+    public function getLifePointsDie() {
+        return  $this->getVitalityDie() . '  ' . $this->getWillpowerDie();
+    }
+
+    /**
+     * @return string
+     */
+    public function getInitiativeDie() {
+        return  $this->getAgilityDie() . '  ' . $this->getAlertnessDie();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnduranceDie() {
+        return  $this->getVitalityDie() . '  ' . $this->getWillpowerDie();
+    }
+
+    /**
+     * @return string
+     */
+    public function getResistanceDie() {
+        return  $this->getVitalityDie() . '  ' . $this->getVitalityDie();
+    }
+
+    /**
+     * translates a die type (integer 1 to infinite) into a string of dice from d2 to d12. 1=d2,6=d12, interval of 2
+     *
+     * @param integer $die
+     * @return string
+     */
+    public function translateDie($die) {
+        $result = '';
+
+        if ($die == 0) {
+            return '0';
+        }
+
+        if ($die > 6) {
+            $result .= '+d12';
+            $die -= 6;
+            $result .= $this->translateDie($die);
+        } else
+        {
+            $result .= '+d' . ($die*2);
+        }
+
+        return $result;
     }
 }
