@@ -1,23 +1,25 @@
 <td>
     {{ attribute.getType }}
 </td>
-<td>
+<td id='attr{{ attribute.getId }}'>
     {{ render(controller(
     'CharacterBundle:Die:translateDie',
     { 'step': attribute.getStep }
     )) }}
 </td>
-<td>
+<td id="attr_inc">
     {# "Buy" button#}
 
     {# if step = 0 and attribute points >= 4 AND step 2 >= maxStep...show + buy button#}
     {% if attribute.getStep == 0 and character.getAttributePoints >= 4 and attribute.getMaxStep >= 2 %}
         {#// show button#}
-        <a href="{{ path('character_buy_attribute', { 'characterId': characterId, 'attributeId': attribute.getId }) }}">more</a>
+        {#<a href="{{ path('character_buy_attribute', { 'characterId': characterId, 'attributeId': attribute.getId }) }}">more</a>#}
+        <a href="#" onclick="buyAttribute({{ character.getId }}, {{ attribute.getId }});">more</a>
     {#// else if step > 1 AND step+1 <= maxStep AND attribute points >= 2...show but button#}
     {% elseif attribute.getStep >= 2 and attribute.getStep+1 <= attribute.getMaxStep and character.getRank.getAttributePoints >= 2 %}
         {#// show button#}
-        <a href="{{ path('character_buy_attribute', { 'characterId': characterId, 'attributeId': attribute.getId }) }}">more</a>
+        <a href="#" onclick="buyAttribute({{ character.getId }}, {{ attribute.getId }});">more</a>
+        {#<a href="{{ path('character_buy_attribute', { 'characterId': characterId, 'attributeId': attribute.getId }) }}">more</a>#}
     {% else %}
         {#// nie show#}
     {% endif %}

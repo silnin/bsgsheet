@@ -5,6 +5,7 @@ namespace Silnin\BsgSheet\CharacterBundle\Controller;
 use Silnin\BsgSheet\CharacterBundle\Entity\Attribute;
 use Silnin\BsgSheet\CharacterBundle\Entity\Character;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -135,7 +136,16 @@ class AttributeController extends Controller
                 'You don\'t have enough Attribute Points to buy more ' . $attribute->getType()
             );
             // redirect back character_edit_attributes
-            return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+            //return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+            $response = new Response();
+
+            $response->setContent('');
+            $response->setStatusCode(999);
+            $response->headers->set('Content-Type', 'text/html');
+
+            // prints the HTTP headers followed by the content
+            $response->send();
+            die();
         }
 
         // confirm > store character
@@ -161,7 +171,15 @@ class AttributeController extends Controller
         );
 
         // redirect back character_edit_attributes
-        return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+        $response = new Response();
+
+        $content = $character->translateDie($attribute->getStep()) . ',' . $character->getRank()->getAttributePoints();
+        $response->setContent($content);
+        $response->setStatusCode(Response::HTTP_OK);
+        $response->headers->set('Content-Type', 'text/html');
+
+        // prints the HTTP headers followed by the content
+        $response->send();
+        die();
     }
 }
-

@@ -2,13 +2,14 @@
 
 {% block content -%}
     <h1>Buy your attributes!</h1>
+    <div id="msgid"></div>
     <a href="{{ path('character_show', { 'id': characterId }) }}">Back to {{ character.getName }}</a>
     <br/>
     Meneer zn strength is {{ character.getStrength }}<br/>
     <br/>
     <br/>
 
-    REMAINING ATTRIBUTE POINTS: {{ character.rank.getAttributePoints }}<br/>
+    REMAINING ATTRIBUTE POINTS: <div id="attributePoints">{{ character.rank.getAttributePoints }}</div><br/>
     <br/>
     <div class="attributes_content">
         {% include 'CharacterBundle:Attribute:ShowEditableAttributes.html.twig' %}
