@@ -30,7 +30,7 @@
     {# if step > 2, show sell button#}
     {% if attribute.getStep > attribute.getMinStep %}
         {#// show buton#}
-        <a href="{{ path('character_sell_attribute', { 'characterId': characterId, 'attributeId': attribute.getId }) }}">less</a>
+        <a href="#" onclick="sellAttribute({{ character.getId }}, {{ attribute.getId }});">less</a>
     {% endif %}
     {#<div class="attribute_row">#}
 </td>

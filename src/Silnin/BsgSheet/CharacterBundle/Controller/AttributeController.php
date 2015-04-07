@@ -70,7 +70,16 @@ class AttributeController extends Controller
                 $attribute->getType() . ' cannot be lowered.'
             );
             // redirect back character_edit_attributes
-            return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+            // return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+            $response = new Response();
+
+            $response->setContent('');
+            $response->setStatusCode(999);
+            $response->headers->set('Content-Type', 'text/html');
+
+            // prints the HTTP headers followed by the content
+            $response->send();
+            die();
         }
 
         // ok: +2 attr points. step-1
@@ -91,7 +100,18 @@ class AttributeController extends Controller
         );
 
         // redirect back character_edit_attributes
-        return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+        //return $this->redirectToRoute('character_edit_attributes', array('characterId' => $characterId));
+        // redirect back character_edit_attributes
+        $response = new Response();
+
+        $content = $character->translateDie($attribute->getStep()) . ',' . $character->getRank()->getAttributePoints();
+        $response->setContent($content);
+        $response->setStatusCode(Response::HTTP_OK);
+        $response->headers->set('Content-Type', 'text/html');
+
+        // prints the HTTP headers followed by the content
+        $response->send();
+        die();
     }
 
     /**
