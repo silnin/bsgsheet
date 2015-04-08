@@ -1,0 +1,47 @@
+<tr>
+    <td>{{ attribute.getType }}</td>
+    <td><span class="badge">{[{ attr{{ attribute.getId }} }]}</span></td>
+    <td>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span></button>
+            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span></button>
+        </div>
+    </td>
+</tr>
+
+{#<td>#}
+    {#{{ attribute.getType }}#}
+{#</td>#}
+{#<td id='attr{{ attribute.getId }}'>#}
+    {#{{ render(controller(#}
+    {#'CharacterBundle:Die:translateDie',#}
+    {#{ 'step': attribute.getStep }#}
+    {#)) }}#}
+{#</td>#}
+{#<td id="attr_inc">#}
+    {#&#123;&#35; "Buy" button&#35;&#125;#}
+
+    {#&#123;&#35; if step = 0 and attribute points >= 4 AND step 2 >= maxStep...show + buy button&#35;&#125;#}
+    {#{% if attribute.getStep == 0 and character.getAttributePoints >= 4 and attribute.getMaxStep >= 2 %}#}
+        {#&#123;&#35;// show button&#35;&#125;#}
+        {#&#123;&#35;<a href="{{ path('character_buy_attribute', { 'characterId': characterId, 'attributeId': attribute.getId }) }}">more</a>&#35;&#125;#}
+        {#<a href="#" onclick="buyAttribute({{ character.getId }}, {{ attribute.getId }});">more</a>#}
+        {#&#123;&#35;// else if step > 1 AND step+1 <= maxStep AND attribute points >= 2...show but button&#35;&#125;#}
+    {#{% elseif attribute.getStep >= 2 and attribute.getStep+1 <= attribute.getMaxStep and character.getRank.getAttributePoints >= 2 %}#}
+        {#&#123;&#35;// show button&#35;&#125;#}
+        {#<a href="#" onclick="buyAttribute({{ character.getId }}, {{ attribute.getId }});">more</a>#}
+        {#&#123;&#35;<a href="{{ path('character_buy_attribute', { 'characterId': characterId, 'attributeId': attribute.getId }) }}">more</a>&#35;&#125;#}
+    {#{% else %}#}
+        {#&#123;&#35;// nie show&#35;&#125;#}
+    {#{% endif %}#}
+{#</td>#}
+{#<td>#}
+    {#&#123;&#35; "sell" button&#35;&#125;#}
+
+    {#&#123;&#35; if step > 2, show sell button&#35;&#125;#}
+    {#{% if attribute.getStep > attribute.getMinStep %}#}
+        {#&#123;&#35;// show buton&#35;&#125;#}
+        {#<a href="#" onclick="sellAttribute({{ character.getId }}, {{ attribute.getId }});">less</a>#}
+    {#{% endif %}#}
+    {#&#123;&#35;<div class="attribute_row">&#35;&#125;#}
+{#</td>#}

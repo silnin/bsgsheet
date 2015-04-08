@@ -7,6 +7,14 @@
     <br/>
     Meneer zn strength is {{ character.getStrength }}<br/>
     <br/>
+    <div ng-app="">
+        <p>Name: <input type="text" ng-model="name"></p>
+
+        <p ng-bind="name"></p>
+        <div ng-app="">
+            <p>My first expression: {{ 5 + 5 }}</p>
+        </div>
+    </div>
     <br/>
 
     REMAINING ATTRIBUTE POINTS: <div id="attributePoints">{{ character.rank.getAttributePoints }}</div><br/>

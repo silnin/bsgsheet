@@ -68,3 +68,27 @@ function sellAttribute(characterId, attributeId)
         window.document.getElementById("attributePoints").innerHTML=pointsValue;
     }
 }
+
+
+var app = angular.module('characterEditor', []);
+
+app.config(function($interpolateProvider){
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('characterEditorLoader', function($scope) {
+    $scope.attr1 = "6";
+    $scope.attr2 = "5";
+    $scope.attr3 = "4";
+    $scope.attr4 = "3";
+    $scope.attr5 = "2";
+    $scope.attr6 = "1";
+});
+
+app.controller('buyAttribute', function($scope) {
+
+});
+
+app.controller('sellAttribute', function($scope) {
+
+});

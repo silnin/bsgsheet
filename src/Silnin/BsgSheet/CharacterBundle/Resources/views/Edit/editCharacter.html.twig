@@ -1,14 +1,23 @@
-{% extends '::base.html.twig' %}
+{% extends 'DashboardBundle:Dashboard:showDashboard.html.twig' %}
 
-{% block body -%}
-    <div id="menu">
-        {{ render(controller(
-        'DashboardBundle:Menu:dashboardMenu',
-        {}
-        )) }}
+{% block content -%}
+<div class="row characterEditorP1Top">
+    <div class="col-sm-12">NAME / CALLSIGN etc</div>
+</div>
+<div class="row characterEditorBackground">space between</div>
+<div class="row">
+    <div class="col-sm-6 characterEditorP1LeftColumn" ng-app="characterEditor" ng-controller="characterEditorLoader">
+        <div class="row characterEditorBsgPane">
+            <div class="characterEditorWoundsPane">
+                W/S
+            </div>
+            <div class="characterEditorBackground">|</div>
+            <div class="characterEditorP1LeftStatsPane">
+                {% include 'CharacterBundle:Edit:editP1Stats.html.twig' %}
+            </div>
+        </div>
     </div>
-
-    <h1>You are attempting to edit {{ id }}, arent you?</h1>
-
+    <div class="col-sm-1 characterEditorBackground">||</div>
+    <div class="col-sm-5 characterEditorP1RightColumn">SKILLS</div>
+</div>
 {% endblock %}
-

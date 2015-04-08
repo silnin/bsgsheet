@@ -1,0 +1,8 @@
+<h2>Attributes</h2>
+<div class="attributes">
+    <table>
+        {% for attribute in character.attributes %}
+            {% include 'CharacterBundle:Edit:editAttribute.html.twig' %}
+        {% endfor %}
+    </table>
+</div>

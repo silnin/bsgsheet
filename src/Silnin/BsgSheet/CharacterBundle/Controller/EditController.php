@@ -29,7 +29,11 @@ class EditController extends Controller
     */
     public function editCharacterAction($id)
     {
-        //@todo this should be in a different Controller! EditController probably
-        return array('id'=>$id);
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Character $character */
+        $character = $em->getRepository('CharacterBundle:Character')->find($id);
+
+        return array('character' => $character);
     }
 }

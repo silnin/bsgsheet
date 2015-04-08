@@ -1,0 +1,64 @@
+#rank-div {
+    background-color: #f00;
+    width: 150px;
+    height: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+a.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+
+.characterEditorP1Top {
+    background-color: #d4d7e1;
+}
+
+.characterEditorP1LeftColumn {
+    /*background-color: #d4d7e1;*/
+}
+
+.characterEditorP1RightColumn {
+    background-color: #a7e1be;
+}
+
+.characterEditorBackground {
+    background-color: #ffffff;
+}
+
+.characterEditorBsgPane {
+
+}
+
+.characterEditorWoundsPane {
+    background-color: #d4d7e1;
+}
+
+.characterEditorP1LeftStatsPane {
+    background-color: #d4d7e1;
+}
+
+.characterEditorP1SkillsPane {
+
+}
+
+.attributes table {
+
+}
+
+.attributes tr {
+
+}
+
+.attributes td {
+    padding-right: 20px;
+}
+
+.attributes tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.attributes tr:nth-child(even) {
+}
