@@ -93,6 +93,8 @@ app.controller('characterEditorLoader', function($scope) {
     $scope.attr4 = "3";
     $scope.attr5 = "2";
     $scope.attr6 = "1";
+    $scope.attributePoints = "42";
+    $scope.initiative = "4";
 });
 
 /**
