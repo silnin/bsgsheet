@@ -69,13 +69,23 @@ function sellAttribute(characterId, attributeId)
     }
 }
 
-
+/**
+ * characterEditor AngularJS Module
+ * @type {*}
+ */
 var app = angular.module('characterEditor', []);
 
+/**
+ * Configuration for characterEditor
+ */
 app.config(function($interpolateProvider){
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
 
+/**
+ * characterEditorLoader
+ * Loads data from backend for character editor
+ */
 app.controller('characterEditorLoader', function($scope) {
     $scope.attr1 = "6";
     $scope.attr2 = "5";
@@ -85,10 +95,18 @@ app.controller('characterEditorLoader', function($scope) {
     $scope.attr6 = "1";
 });
 
+/**
+ * buyAttribute
+ * Updates all neccesary fields when upgrading an attribute
+ */
 app.controller('buyAttribute', function($scope) {
 
 });
 
+/**
+ * sellAttribute
+ * Updates all neccesary fields when downgrading an attribute
+ */
 app.controller('sellAttribute', function($scope) {
 
 });
