@@ -87,28 +87,103 @@ app.config(function($interpolateProvider){
  * Loads data from backend for character editor
  */
 app.controller('characterEditorLoader', function($scope) {
-    $scope.attr1 = "6";
-    $scope.attr2 = "5";
-    $scope.attr3 = "4";
-    $scope.attr4 = "3";
-    $scope.attr5 = "2";
-    $scope.attr6 = "1";
-    $scope.attributePoints = "42";
-    $scope.initiative = "4";
+
+    // initial values:
+
+    // attributes
+    $scope.attributes = {};
+    $scope.attributes[1] = 0;
+    $scope.attributes[2] = 0;
+    $scope.attributes[3] = 0;
+    $scope.attributes[4] = 0;
+    $scope.attributes[5] = 0;
+    $scope.attributes[6] = 0;
+
+    $scope.attributeDice = {};
+    $scope.attributeDice[1] = translateDie($scope.attributes[1]);
+    $scope.attributeDice[2] = translateDie($scope.attributes[2]);
+    $scope.attributeDice[3] = translateDie($scope.attributes[3]);
+    $scope.attributeDice[4] = translateDie($scope.attributes[4]);
+    $scope.attributeDice[5] = translateDie($scope.attributes[5]);
+    $scope.attributeDice[6] = translateDie($scope.attributes[6]);
+
+    // advancement
+    $scope.advancementPoints = 1;
+    $scope.attributePoints = 42;
+    $scope.skillPoints = 2;
+    $scope.traitPoints = 3;
+
+    /**
+     * attempt to upgrade an attribute
+     *
+     * @param attributeId
+     */
+    $scope.buyAttribute = function(attributeId) {
+        // determine step up 1 or 2 (if you're on 0, you'll step 2 to minimum of 1d4
+        var stepUp = 1;
+        if ($scope.attributes[attributeId] == 0) {
+            stepUp = 2;
+        }
+
+        // determine if we can afford it :)
+        var cost = stepUp * 2;
+
+        if ($scope.attributePoints < cost) {
+            // cant afford it
+            //@TODO throw error or notice
+            alert('You don\'t have enough Attribute Points');
+            return;
+        }
+
+        // ok, we're good
+        $scope.attributes[attributeId] += stepUp;
+        $scope.attributePoints -= cost;
+
+        // update the visual dice
+        $scope.attributeDice[attributeId] = translateDie($scope.attributes[attributeId]);
+    };
+
+    /**
+     * Attempt to downgrade an attribute
+     *
+     * @param attributeId
+     */
+    $scope.sellAttribute = function(attributeId) {
+        // we don't go below step2
+
+        if ($scope.attributes[attributeId] <= 2 ) {
+            alert('Sorry, a 1d4 is minimum for attributes.');
+            return;
+        }
+
+        // ok, we're good to go down 1 step
+        $scope.attributes[attributeId] -= 1;
+        $scope.attributeDice[attributeId] = translateDie($scope.attributes[attributeId]);
+        $scope.attributePoints += 2;
+    };
+
 });
 
 /**
- * buyAttribute
- * Updates all neccesary fields when upgrading an attribute
+ * Translates an integer die value into a die-type string (1 = +d2, 2 = +d4, 3 = +d6, etc)
+ *
+ * @param die (integer)
+ * @returns {string}
  */
-app.controller('buyAttribute', function($scope) {
+function translateDie(die) {
+    var result = "";
 
-});
+    if (die == 0) {
+        return '0';
+    }
 
-/**
- * sellAttribute
- * Updates all neccesary fields when downgrading an attribute
- */
-app.controller('sellAttribute', function($scope) {
+    if (die > 6) {
+        result = result.concat("+d12");
+        die -= 6;
+        result = result.concat(translateDie(die));
+    } else {
+        result = result.concat("+d".concat((die*2).toString()));
+    }
 
-});
+    return result;
+}

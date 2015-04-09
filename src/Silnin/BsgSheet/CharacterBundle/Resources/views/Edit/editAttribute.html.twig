@@ -1,10 +1,10 @@
 <tr>
     <td>{{ attribute.getType }}</td>
-    <td><span class="badge">{[{ attr{{ attribute.getId }} }]}</span></td>
+    <td><span class="badge" ng-model="attributeDice[{{ attribute.getId }}]">{[{ attributeDice[{{ attribute.getId }}] }]}</span></td>
     <td>
         <div class="btn-group">
-            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-minus-sign"></span></button>
-            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span></button>
+            <button type="button" class="btn btn-primary" ng-click="sellAttribute({{ attribute.getId }});"><span class="glyphicon glyphicon-minus-sign"></span></button>
+            <button type="button" class="btn btn-primary" ng-click="buyAttribute({{ attribute.getId }});"><span class="glyphicon glyphicon-plus-sign"></span></button>
         </div>
     </td>
 </tr>
