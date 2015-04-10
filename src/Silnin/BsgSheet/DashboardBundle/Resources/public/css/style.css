@@ -74,3 +74,16 @@ a.fill-div {
 .headeredTable tr:nth-child(even) {
     background-color: #ffffff;
 }
+
+.tooltip-target { position: relative; }
+
+.tooltip-content {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: -10px; // set this whatever you want
+}
+
+.tooltip-target:hover .tooltip-content {
+    display: block;
+}

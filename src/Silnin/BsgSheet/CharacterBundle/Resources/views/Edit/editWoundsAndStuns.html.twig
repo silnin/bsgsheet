@@ -1,0 +1,15 @@
+<h2 class="tooltip-target">
+    Health
+</h2>
+<div class="progress">
+    <div class="progress-bar progress-bar-danger" role="progressbar" data-toggle="tooltip" data-placement="bottom" title="Wounds" ng-style="{width : ( woundDamagePercentage + '%' ) }">
+        {[{ wounds }]} W
+    </div>
+    <div class="progress-bar progress-bar-warning" role="progressbar" data-toggle="tooltip" data-placement="bottom" title="Wounds" ng-style="{width : ( stunDamagePercentage + '%' ) }">
+        {[{ stun }]} S
+    </div>
+    <div class="progress-bar progress-bar-success" role="progressbar" data-toggle="tooltip" data-placement="bottom" title="Life Points" ng-style="{width : ( lifePointsPercentage + '%' ) }">
+        {[{ lifePointsPercentage }]}% / {[{ lifePoints }]} LP
+    </div>
+</div>
+dmg basic: [ ] dmg stun: [] dmg wound: []

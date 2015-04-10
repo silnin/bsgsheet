@@ -113,6 +113,18 @@ app.controller('characterEditorLoader', function($scope) {
     $scope.skillPoints = 2;
     $scope.traitPoints = 3;
 
+
+    $scope.hexFilled = "hexFilled";
+    $scope.hexEmpty = "hexEmpty";
+
+    $scope.lifePoints = 40;
+    $scope.wounds = 18;
+    $scope.stun = 8;
+
+    $scope.woundDamagePercentage = getPercentage($scope.wounds, $scope.lifePoints);
+    $scope.stunDamagePercentage = getPercentage($scope.stun, $scope.lifePoints);
+    $scope.lifePointsPercentage = 100 - ($scope.woundDamagePercentage + $scope.stunDamagePercentage);
+
     /**
      * attempt to upgrade an attribute
      *
@@ -162,6 +174,42 @@ app.controller('characterEditorLoader', function($scope) {
         $scope.attributePoints += 2;
     };
 
+    $scope.addDamage = function(type, amount) {
+
+        if ($type == 'stun') {
+            $scope.stun += amount;
+        } else if ($type == 'basic') {
+            var remainder = amount % 2;
+            var half = Math.floor(amount/2);
+            $scope.stun += (half + remainder);
+            $scope.wounds += half;
+        } else if ($type == 'wound') {
+            $scope.wounds += amount;
+        }
+
+        $scope.woundDamagePercentage = getPercentage($scope.wounds, $scope.lifePoints);
+        $scope.stunDamagePercentage = getPercentage($scope.stun, $scope.lifePoints);
+        $scope.lifePointsPercentage = 100 - ($scope.woundDamagePercentage + $scope.stunDamagePercentage);
+    }
+
+    $scope.healStun = function() {
+        $scope.stun -= 1;
+        $scope.woundDamagePercentage = getPercentage($scope.wounds, $scope.lifePoints);
+        $scope.stunDamagePercentage = getPercentage($scope.stun, $scope.lifePoints);
+        $scope.lifePointsPercentage = 100 - ($scope.woundDamagePercentage + $scope.stunDamagePercentage);
+    }
+
+    $scope.healWounds = function() {
+        $scope.wounds -= 1;
+        $scope.woundDamagePercentage = getPercentage($scope.wounds, $scope.lifePoints);
+        $scope.stunDamagePercentage = getPercentage($scope.stun, $scope.lifePoints);
+        $scope.lifePointsPercentage = 100 - ($scope.woundDamagePercentage + $scope.stunDamagePercentage);
+    }
+
+    function getPercentage(part, total) {
+        return Math.round((part / total) * 100);
+    }
+
 });
 
 /**
@@ -187,3 +235,8 @@ function translateDie(die) {
 
     return result;
 }
+
+$('.progress-bar[data-toggle="tooltip"]').tooltip({
+    animated: 'fade',
+    placement: 'bottom'
+});
