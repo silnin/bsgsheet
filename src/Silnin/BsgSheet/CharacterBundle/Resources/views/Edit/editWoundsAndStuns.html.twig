@@ -2,14 +2,32 @@
     Health
 </h2>
 <div class="progress">
-    <div class="progress-bar progress-bar-danger" role="progressbar" data-toggle="tooltip" data-placement="bottom" title="Wounds" ng-style="{width : ( woundDamagePercentage + '%' ) }">
+    <div class="progress-bar progress-bar-danger" role="progressbar" data-toggle="tooltip" data-placement="bottom" title="Wound Points" ng-style="{width : ( woundDamagePercentage + '%' ) }">
         {[{ wounds }]} W
     </div>
-    <div class="progress-bar progress-bar-warning" role="progressbar" data-toggle="tooltip" data-placement="bottom" title="Wounds" ng-style="{width : ( stunDamagePercentage + '%' ) }">
+    <div class="progress-bar progress-bar-warning" role="progressbar" data-toggle="tooltip" data-placement="bottom" title="Stun Points" ng-style="{width : ( stunDamagePercentage + '%' ) }">
         {[{ stun }]} S
     </div>
     <div class="progress-bar progress-bar-success" role="progressbar" data-toggle="tooltip" data-placement="bottom" title="Life Points" ng-style="{width : ( lifePointsPercentage + '%' ) }">
-        {[{ lifePointsPercentage }]}% / {[{ lifePoints }]} LP
+        {[{ lifePoints - (wounds + stun) }]} / {[{ lifePoints }]} LP
     </div>
 </div>
-dmg basic: [ ] dmg stun: [] dmg wound: []
+
+<div class="input-group">
+    <input type="text" ng-model="myInputDamage" class="form-control">
+    <span class="input-group-btn">
+        <button type="button" class="glyphicon glyphicon-asterisk btn btn-primary btn-danger dropdown-toggle" data-toggle="dropdown">
+            Damage
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#" ng-click="addDamage('basic', myInputDamage);">Basic</a></li>
+            <li><a href="#" ng-click="addDamage('stun', myInputDamage);">Stun</a></li>
+            <li><a href="#" ng-click="addDamage('wound', myInputDamage);">Wound</a></li>
+        </ul>
+        <button type="button" class="glyphicon glyphicon-heart btn btn-primary btn-success" ng-click="healWounds(myInputDamage);"> Wound</button>
+        <button type="button" class="glyphicon glyphicon-heart btn btn-primary btn-success" ng-click="healStun(myInputDamage);"> Stun</button>
+    </span>
+</div>
+
+

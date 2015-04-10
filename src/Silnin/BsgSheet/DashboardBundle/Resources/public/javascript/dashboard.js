@@ -113,17 +113,20 @@ app.controller('characterEditorLoader', function($scope) {
     $scope.skillPoints = 2;
     $scope.traitPoints = 3;
 
-
-    $scope.hexFilled = "hexFilled";
-    $scope.hexEmpty = "hexEmpty";
-
+    // derived attributes that have been established
     $scope.lifePoints = 40;
+    $scope.endurance = 3;
+    $scope.resistance = 4;
+
+    // health
     $scope.wounds = 18;
     $scope.stun = 8;
-
     $scope.woundDamagePercentage = getPercentage($scope.wounds, $scope.lifePoints);
     $scope.stunDamagePercentage = getPercentage($scope.stun, $scope.lifePoints);
     $scope.lifePointsPercentage = 100 - ($scope.woundDamagePercentage + $scope.stunDamagePercentage);
+
+    // input field for taking damage
+    $scope.myInputDamage = 0;
 
     /**
      * attempt to upgrade an attribute
@@ -174,17 +177,24 @@ app.controller('characterEditorLoader', function($scope) {
         $scope.attributePoints += 2;
     };
 
+    /**
+     * Add damage of type stun, wound or basic
+     *
+     * @param type
+     * @param amount
+     */
     $scope.addDamage = function(type, amount) {
+        var numericAmount = parseInt(amount);
 
-        if ($type == 'stun') {
-            $scope.stun += amount;
-        } else if ($type == 'basic') {
-            var remainder = amount % 2;
-            var half = Math.floor(amount/2);
+        if (type == 'stun') {
+            $scope.stun += numericAmount;
+        } else if (type == 'basic') {
+            var remainder = numericAmount % 2;
+            var half = Math.floor(numericAmount/2);
             $scope.stun += (half + remainder);
             $scope.wounds += half;
-        } else if ($type == 'wound') {
-            $scope.wounds += amount;
+        } else if (type == 'wound') {
+            $scope.wounds += numericAmount;
         }
 
         $scope.woundDamagePercentage = getPercentage($scope.wounds, $scope.lifePoints);
@@ -192,20 +202,51 @@ app.controller('characterEditorLoader', function($scope) {
         $scope.lifePointsPercentage = 100 - ($scope.woundDamagePercentage + $scope.stunDamagePercentage);
     }
 
-    $scope.healStun = function() {
-        $scope.stun -= 1;
+    /**
+     * Healing Stun Points
+     *
+     * @param amount
+     */
+    $scope.healStun = function(amount) {
+        var numericAmount = parseInt(amount);
+
+        if (($scope.stun - numericAmount) < 1) {
+            $scope.stun = 0;
+        } else {
+            $scope.stun -= numericAmount;
+        }
+
         $scope.woundDamagePercentage = getPercentage($scope.wounds, $scope.lifePoints);
         $scope.stunDamagePercentage = getPercentage($scope.stun, $scope.lifePoints);
         $scope.lifePointsPercentage = 100 - ($scope.woundDamagePercentage + $scope.stunDamagePercentage);
     }
 
-    $scope.healWounds = function() {
-        $scope.wounds -= 1;
+    /**
+     * Healing Wound Points
+     *
+     * @param amount
+     */
+    $scope.healWounds = function(amount) {
+        var numericAmount = parseInt(amount);
+
+        if (($scope.wounds - numericAmount) < 1) {
+            $scope.wounds = 0;
+        } else {
+            $scope.wounds -= numericAmount;
+        }
+
         $scope.woundDamagePercentage = getPercentage($scope.wounds, $scope.lifePoints);
         $scope.stunDamagePercentage = getPercentage($scope.stun, $scope.lifePoints);
         $scope.lifePointsPercentage = 100 - ($scope.woundDamagePercentage + $scope.stunDamagePercentage);
     }
 
+    /**
+     * Calculate what the percentage is part:total
+     *
+     * @param part
+     * @param total
+     * @returns {number}
+     */
     function getPercentage(part, total) {
         return Math.round((part / total) * 100);
     }

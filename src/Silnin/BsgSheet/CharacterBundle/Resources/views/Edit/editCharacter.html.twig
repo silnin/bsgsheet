@@ -7,14 +7,8 @@
 
 <div class="row">
     <div class="col-sm-6 characterEditorP1LeftColumn" ng-app="characterEditor" ng-controller="characterEditorLoader">
-        <div class="row characterEditorBsgPane">
-            <div class="characterEditorWoundsPane">
-                {% include 'CharacterBundle:Edit:editWoundsAndStuns.html.twig' %}
-            </div>
-            <div class="characterEditorBackground"></div>
-            <div class="characterEditorP1LeftStatsPane">
-                {% include 'CharacterBundle:Edit:editP1Stats.html.twig' %}
-            </div>
+        <div class="characterEditorP1LeftStatsPane">
+            {% include 'CharacterBundle:Edit:editP1Stats.html.twig' %}
         </div>
     </div>
     <div class="col-sm-1 characterEditorBackground">||</div>
